@@ -371,16 +371,165 @@ n	4.285714285714286-----------------------------------> [   MAP REDUCE  OUTPUT  
 
 
 As,our input is this--->
+no----->1+1=2
+not----->1+1+1=3
+now----->1+1+1=3
+note---->1+1+1+1=4
+nothing------->1+1+1+1+1+1+1=7
+nobody------>1+1+1+1+1+1=6
+never------->1+1+1+1+1=5
+
+2+3+3+4+7+6+5=30
+
+now calculating avg....
+
+==>30/7=4.285714285714286
+
+
+
+
+now if we have to create another txt file suppose we give different input here,
+
+[cloudera@quickstart ~]$ cat > /home/cloudera/mapfile2.txt
+nice
+new 
 no
-not
-now
-note
-nothing
-nobody
 never
+nai
+noi 
+nppp
+ayush
+abcd
+A B C D
+cat
+cute
+car
+camera
+cream
+zolo
+zumba
+zulu
+^Z
+[2]+  Stopped                 cat > /home/cloudera/mapfile2.txt
+
+[cloudera@quickstart ~]$ cat  /home/cloudera/mapfile2.txt
+nice
+new 
+no
+never
+nai
+noi
+nppp
+ayush
+abcd
+A B C D
+cat
+cute
+car
+camera
+cream
+zolo
+zumba
+zulu
+
+[cloudera@quickstart ~]$ hdfs dfs -mkdir /mapfolder2------------------->make  directory
 
 
 
+
+[cloudera@quickstart ~]$ hdfs dfs -put /home/cloudera/mapfile2.txt /mapfolder2---------------------------------------------------->put txt file inside your directory!!
+
+[cloudera@quickstart ~]$ hadoop jar /home/cloudera/mapreduce.jar mapreduce /mapfolder2/mapfile2.txt /mapoutput2-------------------->jar command
+21/08/30 23:35:09 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+21/08/30 23:35:10 INFO input.FileInputFormat: Total input paths to process : 1
+21/08/30 23:35:10 INFO mapreduce.JobSubmitter: number of splits:1
+21/08/30 23:35:11 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1616685848912_0084
+21/08/30 23:35:11 INFO impl.YarnClientImpl: Submitted application application_1616685848912_0084
+21/08/30 23:35:11 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application_1616685848912_0084/
+21/08/30 23:35:11 INFO mapreduce.Job: Running job: job_1616685848912_0084
+21/08/30 23:35:18 INFO mapreduce.Job: Job job_1616685848912_0084 running in uber mode : false
+21/08/30 23:35:18 INFO mapreduce.Job:  map 0% reduce 0%
+21/08/30 23:35:25 INFO mapreduce.Job:  map 100% reduce 0%
+21/08/30 23:35:35 INFO mapreduce.Job:  map 100% reduce 100%
+21/08/30 23:35:35 INFO mapreduce.Job: Job job_1616685848912_0084 completed successfully--------------------->[ S U C C E S S ]
+21/08/30 23:35:36 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=102
+		FILE: Number of bytes written=287269
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=213
+		HDFS: Number of bytes written=77
+		HDFS: Number of read operations=6
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=5530
+		Total time spent by all reduces in occupied slots (ms)=6711
+		Total time spent by all map tasks (ms)=5530
+		Total time spent by all reduce tasks (ms)=6711
+		Total vcore-milliseconds taken by all map tasks=5530
+		Total vcore-milliseconds taken by all reduce tasks=6711
+		Total megabyte-milliseconds taken by all map tasks=5662720
+		Total megabyte-milliseconds taken by all reduce tasks=6872064
+	Map-Reduce Framework
+		Map input records=18
+		Map output records=21
+		Map output bytes=210
+		Map output materialized bytes=102
+		Input split bytes=120
+		Combine input records=21
+		Combine output records=8
+		Reduce input groups=8
+		Reduce shuffle bytes=102
+		Reduce input records=8
+		Reduce output records=8
+		Spilled Records=16
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=59
+		CPU time spent (ms)=2160
+		Physical memory (bytes) snapshot=476094464
+		Virtual memory (bytes) snapshot=3150561280
+		Total committed heap usage (bytes)=384827392
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=93
+	File Output Format Counters 
+		Bytes Written=77
+		
+
+
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /mapoutput2/*----------------------------------------------------------->view what is present
+-rw-r--r--   1 cloudera supergroup          0 2021-08-30 23:35 /mapoutput2/_SUCCESS
+-rw-r--r--   1 cloudera supergroup         77 2021-08-30 23:35 /mapoutput2/part-r-00000
+
+
+[cloudera@quickstart ~]$ hdfs dfs -cat /mapoutput2/part-r-00000------------------------------------------->concatenate /reads the data sequentially...............
+A	1.0
+B	1.0
+C	1.0
+D	1.0
+a	4.5
+c	4.2
+n	3.4285714285714284
+z	4.333333333333333
+
+by this procedure of map reduce we can get the avg of each word..... 
+
+ 
 
 
 
