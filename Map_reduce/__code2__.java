@@ -1,4 +1,4 @@
-/*WELCOME USERS!!!!!!!!!!!!!
+/*WELCOME USERS!!!!!!!!!!!!! 
 
 After setting up the cloudera on our virtual machine,
 follow the procedure ,
